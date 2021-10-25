@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Insert new Genre</title>
+  </head>
+  <body>
+    <h1 class="headings">Insert a New Genre</h1>
+    <div class="form-container">
+      <form action="{{route('createGenre')}}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" name="name" class="form-control" placeholder="Insert book's name" />
+          @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
+        </div>
+        <button type="submit" class="button">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
