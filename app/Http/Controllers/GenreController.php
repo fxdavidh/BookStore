@@ -10,11 +10,6 @@ class GenreController extends Controller
 {
     //
 
-    public function viewGenrePage()
-    {
-        return view('Genre.genreCreate');
-    }
-
     public function createGenre(GenreCreateRequest $request)
     {
 
@@ -22,7 +17,7 @@ class GenreController extends Controller
             'name' => $request->name
         ]);
 
-        return $this->getGenre();
+        return redirect(route('getGenre'));
     }
 
     public function getGenre()
@@ -30,11 +25,24 @@ class GenreController extends Controller
         $genres = Genre::all();
         return view('Genre.genreView', compact('genres'));
     }
-    public function updateGenre()
-    {
+
+    public function viewUpdateGenre($id){
+        $genre = Genre::find($id);
+        return view('Genre.genreUpdate', ['updateGenre' => $genre]);
     }
-    
-    public function deleteGenre()
-    {
+
+    public function updateGenre(GenreCreateRequest $request, $id){
+        $genre = Genre::where('id', '=', $id)->first();
+
+        $genre -> update([
+            'name' => $request->name
+        ]);
+
+        return redirect(route('getGenre'));
+    }
+
+    public function deleteGenre($id){
+        Genre::destroy($id);
+        return redirect(route('getGenre'));
     }
 }

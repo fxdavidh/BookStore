@@ -21,7 +21,8 @@ Route::get('/', function () {
 
 Route::post('/create-genre', genreController . '@createGenre')->name('createGenre');
 Route::get('/create-genre', genreController . '@viewGenrePage')->name('viewGenrePage');
-Route::post('/update-genre/{id}', genreController . '@updateGenre')->name('updateGenre');
+Route::get('/update-genre/{id}', genreController . '@viewUpdateGenre')->name('viewUpdateGenre');
+Route::patch('/update-genre/{id}', genreController . '@updateGenre')->name('updateGenre');
 Route::delete('/delete-genre/{id}', genreController . '@deleteGenre')->name('deleteGenre');
 Route::get('/get-genre', genreController . '@getGenre')->name('getGenre');
 
