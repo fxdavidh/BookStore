@@ -15,11 +15,11 @@ class Book_Genre extends Model
 
     public function book()
     {
-        return $this->belongsTo('App\Book', 'id');
+        return $this->belongsTo('App\Models\Book', 'id');
     }
 
     public function genre()
     {
-        return $this->belongsTo('App\Genre', 'id');
+        return $this->belongsTo('App\Models\Genre', 'id');
     }
 }
