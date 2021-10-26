@@ -13,9 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+const genreController = 'App\Http\Controllers\GenreController';
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/create-genre', genreController . '@createGenre')->name('createGenre');
+Route::get('/create-genre', genreController . '@viewGenrePage')->name('viewGenrePage');
+Route::post('/update-genre/{id}', genreController . '@updateGenre')->name('updateGenre');
+Route::delete('/delete-genre/{id}', genreController . '@deleteGenre')->name('deleteGenre');
+Route::get('/get-genre', genreController . '@getGenre')->name('getGenre');
 
 Auth::routes();
 

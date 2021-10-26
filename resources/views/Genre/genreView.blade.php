@@ -27,14 +27,14 @@
                                     <tr>
                                         <td>{{$genre -> id}}</td>
                                         <td>{{$genre -> name}}</td>
-                                        <td>
+                                        {{-- <td>
                                             <a href="{{route('genreUpdate', ['id' => $genre->id])}}" class="btn btn-success">Edit</a>
                                             <form action="{{route('genreDelete', ['id' => $genre->id])}}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('delete')
                                                 <button class="btn btn-danger">Delete</button>
                                             </form>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -10,17 +10,31 @@ class GenreController extends Controller
 {
     //
 
-    public function createGenre(GenreCreateRequest $request){
+    public function viewGenrePage()
+    {
+        return view('Genre.genreCreate');
+    }
+
+    public function createGenre(GenreCreateRequest $request)
+    {
 
         Genre::create([
             'name' => $request->name
         ]);
 
-        return $this->show();
+        return $this->getGenre();
     }
 
-    public function show(){
+    public function getGenre()
+    {
         $genres = Genre::all();
         return view('Genre.genreView', compact('genres'));
+    }
+    public function updateGenre()
+    {
+    }
+    
+    public function deleteGenre()
+    {
     }
 }
