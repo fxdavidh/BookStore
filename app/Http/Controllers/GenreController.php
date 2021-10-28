@@ -9,15 +9,17 @@ use Illuminate\Http\Request;
 class GenreController extends Controller
 {
     //
+    public function viewGenreCreate(){
+        return view('Genre.genreCreate');
+    }
 
     public function createGenre(GenreCreateRequest $request)
     {
-
         Genre::create([
             'name' => $request->name
         ]);
 
-        return redirect(route('getGenre'));
+        return redirect(route('getGenres'));
     }
 
     public function getGenre()
@@ -25,24 +27,33 @@ class GenreController extends Controller
         $genres = Genre::all();
         return view('Genre.genreView', compact('genres'));
     }
+    
+    public function getGenreOnBookCreate()
+    {
+        $genres = Genre::all();
+        return view('Book.bookCreate', compact('genres'));
+    }
 
-    public function viewUpdateGenre($id){
+    public function viewUpdateGenre($id)
+    {
         $genre = Genre::find($id);
         return view('Genre.genreUpdate', ['updateGenre' => $genre]);
     }
 
-    public function updateGenre(GenreCreateRequest $request, $id){
+    public function updateGenre(GenreCreateRequest $request, $id)
+    {
         $genre = Genre::where('id', '=', $id)->first();
 
-        $genre -> update([
+        $genre->update([
             'name' => $request->name
         ]);
 
-        return redirect(route('getGenre'));
+        return redirect(route('getGenres'));
     }
 
-    public function deleteGenre($id){
+    public function deleteGenre($id)
+    {
         Genre::destroy($id);
-        return redirect(route('getGenre'));
+        return redirect(route('getGenres'));
     }
 }

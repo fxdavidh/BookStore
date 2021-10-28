@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Insert new Genre</title>
+    <title>Update Genre</title>
   </head>
   <body>
-    <h1 class="headings">Insert a New Genre</h1>
+    <h1 class="headings">Update a Genre</h1>
     <div class="form-container">
       <form action="{{route('updateGenre', ['id' => $updateGenre->id])}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" name="name" class="form-control" value="{{$updateGenre->name}}" placeholder="Insert book's name" />
+          <input type="text" name="name" class="form-control" value="{{$updateGenre->name}}" placeholder="Insert genre's name" />
           @error('name')
             <div class="alert alert-danger">{{ $message }}</div>
           @enderror
