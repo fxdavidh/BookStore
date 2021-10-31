@@ -71,7 +71,30 @@ class BookController extends Controller
     public function viewUpdateBook($id)
     {
         $books = Book::find($id);
-        $genres = Genre::all();
+        $genres = DB::table('genres')
+        ->select('genres.*')
+        ->get();
+        $oldGenre = DB::table('book__genres')
+                ->join('genres', 'book__genres.genreId', '=', 'genres.id')
+                ->select('book__genres.bookId as bookId', 'genres.*')
+                ->where('book__genres.bookId', '=', $id)
+                ->get();
+        
+        $key = 0;
+        $arraySize = count($oldGenre);
+        foreach($genres as $i => $genre) {
+            if($key < $arraySize) {
+                if($oldGenre[$key]->id == $genre->id ) {
+                    $genres[$i]->check = 'checked';
+                    $key++;
+                }
+                else $genres[$i]->check = '';
+            }
+            else $genres[$i]->check = '';
+        }
+
+        // return dd($genres);
+
         return view('Book.bookUpdate', ['updateBook' => $books, 'updateGenre' => $genres]);
     }
 
