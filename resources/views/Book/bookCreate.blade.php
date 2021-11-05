@@ -26,6 +26,18 @@
           @enderror
         </div>
         <div class="form-group">
+          <label for="author">Genre</label>
+          @foreach ($genres as $genre)
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="genre[]" value="{{$genre->id}}">
+              <label class="form-check-label" for="inlineCheckbox1">{{$genre->name}}</label>
+            </div>
+          @endforeach
+          @error('genre')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
+        </div>
+        <div class="form-group">
           <label for="synopsis">Synopsis</label>
           <textarea name="synopsis" cols="30" rows="3" type="text" class="form-control">
           </textarea>
@@ -37,10 +49,10 @@
           <label for="nama-umkm">Upload Book's Cover</label>
           <input
             type="file"
-            name="image"
+            name="cover"
             class="form-control-file"
           />
-          @error('image')
+          @error('cover')
             <div class="alert alert-danger">{{ $message }}</div>
           @enderror
         </div>
