@@ -7,24 +7,27 @@
     <title>Update Genre</title>
   </head>
   <body>
-    <h1 class="headings">Update a Genre</h1>
-    <div class="form-container">
-      <form action="{{route('updateGenre', ['id' => $updateGenre->id])}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PATCH')
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" name="name" class="form-control" value="{{$updateGenre->name}}" placeholder="Insert genre's name" />
-          @error('name')
-            <div class="alert alert-danger">{{ $message }}</div>
-          @enderror
-        </div>
-        <button type="submit" class="button">Submit</button>
-      </form>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
   </body>
 </html>
+@extends('layouts.app')
+@section('content')
+  <h1 class="headings">Update a Genre</h1>
+  <div class="form-container">
+    <form action="{{route('updateGenre', ['id' => $updateGenre->id])}}" method="POST" enctype="multipart/form-data">
+      @csrf
+      @method('PATCH')
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" class="form-control" value="{{$updateGenre->name}}" placeholder="Insert genre's name" />
+        @error('name')
+          <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+      </div>
+      <button type="submit" class="button">Submit</button>
+    </form>
+  </div>
+@endsection

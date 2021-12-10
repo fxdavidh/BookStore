@@ -40,18 +40,31 @@ class BookController extends Controller
         return redirect(route('getBooks'));
     }
 
-    public function getBook()
+    public function getBooks()
     {
-        // $books = Book::all();
-        // $book_genres = Book_Genre::all();
-        // $books = DB::table('books')
-        //         ->join('book__genres', 'books.id', '=', 'book__genres.bookId')
-        //         ->join('genres', 'book__genres.genreId', '=', 'genres.id')
-        //         ->select('books.id as bookId', 'books.name as bookName', 'books.author', 'books.synopsis', 'books.cover', 'books.price', 'genres.id as genreId', 'genres.name as genreName')
-        //         ->get();
-
         $books = DB::table('books')
             ->select('*')
+            ->get();
+
+        foreach ($books as $key => $value) 
+        {
+            $bookId = $books[$key]->id;
+
+            $genre = DB::table('book__genres')
+                ->join('genres', 'book__genres.genreId', '=', 'genres.id')
+                ->select('book__genres.bookId as bookId', 'genres.*')
+                ->where('book__genres.bookId', '=', $bookId)
+                ->get();
+            $books[$key]->genre = $genre;
+        }
+        return view('Book.bookView', compact('books'));
+    }
+
+    public function getBooksByFilter(Request $request)
+    {
+        $books = DB::table('books')
+            ->select('*')
+            ->where('books.name', 'like', '%'.$request->filter.'%')
             ->get();
 
         foreach ($books as $key => $value) 

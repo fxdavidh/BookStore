@@ -65,12 +65,7 @@
           <div class="alert alert-danger">{{ $message }}</div>
         @enderror
       </div>
-      <button type="submit" class="btn btn-success">Update</button>
+      <button type="submit" class="button">Submit</button>
     </form>
-    <form action="{{route('deleteBook', ['id' => $updateBook->id])}}" method="POST" enctype="multipart/form-data">
-      @csrf
-      @method('delete')
-      <button class="btn btn-danger">Delete</button>
-  </form>
   </div>
 @endsection
