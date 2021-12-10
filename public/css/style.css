@@ -42,3 +42,8 @@ p {
 .nav {
     padding-bottom: 100px;
 }
+
+.action {
+    display: flex;
+    justify-content: space-evenly;
+}

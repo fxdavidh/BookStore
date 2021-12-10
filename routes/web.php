@@ -36,7 +36,7 @@ Route::get('/create-genre', genreController . '@viewGenreCreate')->name('viewGen
 Route::get('/update-genre/{id}', genreController . '@viewUpdateGenre')->name('viewUpdateGenre');
 Route::patch('/update-genre/{id}', genreController . '@updateGenre')->name('updateGenre');
 Route::delete('/delete-genre/{id}', genreController . '@deleteGenre')->name('deleteGenre');
-Route::get('/get-genre', genreController . '@getGenre')->name('getGenres');
+Route::get('/get-genres', genreController . '@getGenre')->name('getGenres');
 
 Route::get('/update-users/{id}', userController . '@viewUpdateUser')->name('viewUpdateUser');
 Route::get('/get-users', userController . '@getUsers')->name('getUsers');
