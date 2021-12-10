@@ -17,3 +17,28 @@ a {
 p {
     padding-top: 7px;
 }
+
+.filter {
+    padding: 5px 40px 40px 0px;
+}
+
+.card-upper{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upper-img{
+    width: 200px;
+    height: 300px;
+}
+
+.card-lower{
+    margin: 0rem 1rem;
+    padding-bottom: 1.5rem;
+}
+
+.nav {
+    padding-bottom: 100px;
+}

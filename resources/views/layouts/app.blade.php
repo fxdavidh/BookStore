@@ -54,7 +54,7 @@
                                 </li>
                             @endif
                         @else
-                            @if (Auth::user()->roleId == 1)
+                            @if (Auth::user()->roleId == 2)
                                 <li class="nav-item">
                                     <a class="nav-link" aria-current="page" href="#">View Cart</a>
                                 </li>

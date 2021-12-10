@@ -1,71 +1,70 @@
 @extends('layouts.app')
 @section('content')
-  <h1 class="headings">Update Book's Information</h1>
-  <div class="form-container">
-    <form action="{{route('updateBook', ['id' => $updateBook->id])}}" method="POST" enctype="multipart/form-data">
-      @csrf
-      @method('PATCH')
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" class="form-control" value="{{$updateBook->name}}" placeholder="Insert book's name" />
-        @error('name')
-          <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-      <div class="form-group">
-        <label for="author">Author</label>
-        <input type="text" name="author" value="{{$updateBook->author}}" class="form-control" placeholder="Insert author's name" />
-        @error('author')
-          <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-      <div class="form-group">
-        <label for="author">Genre</label>
-        @foreach ($updateGenre as $key => $genre)
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="genre[]" value="{{$genre->id}}" {{ ($genre->check == 'checked' ? 'checked': '') }}>
-              <label class="form-check-label" for="inlineCheckbox1">{{$genre->name}}</label>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="navbar navbar-light" style="padding-bottom: 40px;">
+            <div class="container-fluid">
+                <h1>Update Book's Information</h1>
             </div>
-        @endforeach 
-        @error('genre')
-          <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-      <div class="form-group">
-        <label for="synopsis">Synopsis</label>
-        <textarea name="synopsis" cols="30" rows="3" type="text" class="form-control">
-          {{$updateBook->synopsis}}
-        </textarea>
-        @error('synopsis')
-          <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-      <div class="form-group">
-        <label for="nama-umkm">Upload Book's Cover</label>
-        <input
-          type="file"
-          name="cover" 
-          value="{{$updateBook->cover}}"
-          class="form-control-file"
-        />
-        @error('cover')
-          <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-      <div class="form-group">
-        <label for="ktp">Book's Price</label>
-        <input
-          type="number"
-          name="price" 
-          value="{{$updateBook->price}}"
-          class="form-control"
-          placeholder="Insert book's price"
-        />
-        @error('price')
-          <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
-      <button type="submit" class="button">Submit</button>
-    </form>
-  </div>
+        </div>
+        <div class="row col-4">
+            <img src="{{asset('storage/'.$updateBook -> cover)}}" alt={{$updateBook -> cover}}>
+        </div>
+        <div class="row col-sm-1"></div>
+        <div class="row col-7">
+            <div class="mb-3 row">
+                <label for="name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly name="name" class="form-control-plaintext" value="{{$updateBook->name}}">
+                </div>
+                @error('name')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3 row">
+                <label for="author" class="col-sm-2 col-form-label">Author</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly name="author" class="form-control-plaintext" value="{{$updateBook->author}}">
+                </div>
+                @error('author')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3 row">
+                <label for="author" class="col-sm-2 col-form-label">Genre</label>
+                <div class="col-sm-10" style="padding-top: 10px;">
+                    @foreach ($updateGenre as $key => $genre)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" onclick="return false;" id="inlineCheckbox1" name="genre[]" value="{{$genre->id}}" {{ ($genre->check == 'checked' ? 'checked': '') }}>
+                            <label class="form-check-label" for="inlineCheckbox1">{{$genre->name}}</label>
+                        </div>
+                    @endforeach 
+                </div>
+                @error('genre')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3 row">
+                <label for="synopsis" class="col-sm-2 col-form-label">Synopsis</label>
+                <div class="col-sm-10">
+                        <textarea name="synopsis" readonly cols="30" rows="3" type="text" class="form-control-plaintext">
+                        {{$updateBook->synopsis}}
+                        </textarea>
+                </div>
+                @error('synopsis')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3 row">
+                <label for="price" class="col-sm-2 col-form-label">Price</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly name="price" class="form-control-plaintext" value="{{$updateBook->price}}">
+                </div>
+                @error('price')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
