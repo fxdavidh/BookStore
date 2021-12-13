@@ -1,29 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Insert new Genre</title>
-  </head>
-  <body>
-    <h1 class="headings">Insert a New Genre</h1>
-    <div class="form-container">
-      <form action="{{route('createGenre')}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="form-group">
-          <label for="name">Genre</label>
-          <input type="text" name="name" class="form-control" placeholder="Insert Genre's name" />
-          @error('name')
-            <div class="alert alert-danger">{{ $message }}</div>
-          @enderror
+@extends('layouts.app')
+@section('content')
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="row col-8">
+            <h1 class="headings">Insert a New Genre</h1>
+            <div class="form-container">
+                <form action="{{route('createGenre')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3 row">
+                        <label for="name" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                        @error('name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
         </div>
-        <button type="submit" class="button">Submit</button>
-      </form>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
-  </body>
-</html>
+</div>
+@endsection
