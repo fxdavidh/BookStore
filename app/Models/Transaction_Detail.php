@@ -13,18 +13,18 @@ class Transaction_Detail extends Model
         'quantity', 'transaction_id', 'userId', 'bookId', 
     ];
     
-    public function transaction()
+    public function transactions()
     {
-        return $this->belongsTo('App\Models\Transaction', 'id');
+        return $this->belongsTo(Transaction::class, 'transaction_id', 'id');
     }
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\Models\User', 'id');
+        return $this->belongsTo(User::class, 'userId', 'id');
     }
     
-    public function book()
+    public function books()
     {
-        return $this->belongsTo('App\Models\Book', 'id');
+        return $this->belongsTo(Book::class, 'bookId', 'id');
     }
 }

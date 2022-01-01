@@ -12,4 +12,9 @@ class Book extends Model
     protected $fillable = [
         'name', 'author', 'synopsis', 'cover', 'price', 
     ];
+    
+    public function genres()
+    {
+        return $this->hasMany(Book_Genre::class, 'bookId', 'id');
+    }
 }

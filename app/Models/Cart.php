@@ -13,13 +13,13 @@ class Cart extends Model
         'userId', 'bookId', 'quantity', 
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\Models\User', 'id');
+        return $this->belongsTo(User::class, 'userId', 'id');
     }
     
-    public function book()
+    public function books()
     {
-        return $this->belongsTo('App\Models\Book', 'id');
+        return $this->belongsTo(Book::class, 'bookId', 'id');
     }
 }

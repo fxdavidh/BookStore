@@ -12,4 +12,9 @@ class Transaction extends Model
     protected $fillable = [
         'date', 
     ];
+    
+    public function details()
+    {
+        return $this->hasMany(Transaction_Detail::class, 'transactionId', 'id');
+    }
 }
