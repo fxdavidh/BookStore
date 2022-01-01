@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
-    //
     public function viewBookCreate()
     {
         return view('Book.bookCreate');
@@ -44,10 +43,9 @@ class BookController extends Controller
     {
         $books = DB::table('books')
             ->select('*')
-            ->get();
+            ->paginate(5);
 
-        foreach ($books as $key => $value) 
-        {
+        foreach ($books as $key => $value) {
             $bookId = $books[$key]->id;
 
             $genre = DB::table('book__genres')
@@ -64,11 +62,10 @@ class BookController extends Controller
     {
         $books = DB::table('books')
             ->select('*')
-            ->where('books.name', 'like', '%'.$request->filter.'%')
-            ->get();
+            ->where('books.name', 'like', '%' . $request->filter . '%')
+            ->paginate(5);
 
-        foreach ($books as $key => $value) 
-        {
+        foreach ($books as $key => $value) {
             $bookId = $books[$key]->id;
 
             $genre = DB::table('book__genres')
@@ -85,28 +82,24 @@ class BookController extends Controller
     {
         $books = Book::find($id);
         $genres = DB::table('genres')
-        ->select('genres.*')
-        ->get();
+            ->select('genres.*')
+            ->get();
         $oldGenre = DB::table('book__genres')
-                ->join('genres', 'book__genres.genreId', '=', 'genres.id')
-                ->select('book__genres.bookId as bookId', 'genres.*')
-                ->where('book__genres.bookId', '=', $id)
-                ->get();
-        
+            ->join('genres', 'book__genres.genreId', '=', 'genres.id')
+            ->select('book__genres.bookId as bookId', 'genres.*')
+            ->where('book__genres.bookId', '=', $id)
+            ->get();
+
         $key = 0;
         $arraySize = count($oldGenre);
-        foreach($genres as $i => $genre) {
-            if($key < $arraySize) {
-                if($oldGenre[$key]->id == $genre->id ) {
+        foreach ($genres as $i => $genre) {
+            if ($key < $arraySize) {
+                if ($oldGenre[$key]->id == $genre->id) {
                     $genres[$i]->check = 'checked';
                     $key++;
-                }
-                else $genres[$i]->check = '';
-            }
-            else $genres[$i]->check = '';
+                } else $genres[$i]->check = '';
+            } else $genres[$i]->check = '';
         }
-
-        // return dd($genres);
 
         return view('Book.bookUpdate', ['updateBook' => $books, 'updateGenre' => $genres]);
     }
@@ -115,28 +108,24 @@ class BookController extends Controller
     {
         $books = Book::find($id);
         $genres = DB::table('genres')
-        ->select('genres.*')
-        ->get();
+            ->select('genres.*')
+            ->get();
         $oldGenre = DB::table('book__genres')
-                ->join('genres', 'book__genres.genreId', '=', 'genres.id')
-                ->select('book__genres.bookId as bookId', 'genres.*')
-                ->where('book__genres.bookId', '=', $id)
-                ->get();
-        
+            ->join('genres', 'book__genres.genreId', '=', 'genres.id')
+            ->select('book__genres.bookId as bookId', 'genres.*')
+            ->where('book__genres.bookId', '=', $id)
+            ->get();
+
         $key = 0;
         $arraySize = count($oldGenre);
-        foreach($genres as $i => $genre) {
-            if($key < $arraySize) {
-                if($oldGenre[$key]->id == $genre->id ) {
+        foreach ($genres as $i => $genre) {
+            if ($key < $arraySize) {
+                if ($oldGenre[$key]->id == $genre->id) {
                     $genres[$i]->check = 'checked';
                     $key++;
-                }
-                else $genres[$i]->check = '';
-            }
-            else $genres[$i]->check = '';
+                } else $genres[$i]->check = '';
+            } else $genres[$i]->check = '';
         }
-
-        // return dd($genres);
 
         return view('Book.bookViewDetail', ['updateBook' => $books, 'updateGenre' => $genres]);
     }
@@ -144,13 +133,13 @@ class BookController extends Controller
     public function updateBook(BookCreateUpdateRequest $request, $id)
     {
         $book = Book::where('id', '=', $id)->first();
-        
+
         DB::table('book__genres')->where('bookId', '=', $id)->delete();
         Storage::delete($book->cover);
 
         $cover = $request->file('cover')->store('covers');
 
-        $book -> update([
+        $book->update([
             'name' => $request->name,
             'author' => $request->author,
             'synopsis' => $request->synopsis,

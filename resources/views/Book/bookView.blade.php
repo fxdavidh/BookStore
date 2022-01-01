@@ -41,6 +41,9 @@
                                         <img src="{{asset('storage/'.$book -> cover)}}" class="upper-img" alt={{$book -> cover}}>
                                     </div>
                                     <div class="card-body card-lower">
+                                        @foreach ($book->genre as $bookGenre)
+                                            <button type="button" class="btn btn-outline-dark btn-sm genre">{{ $bookGenre -> name}}</button>
+                                        @endforeach
                                         <h5 class="card-title">{{$book -> name}}</h5>
                                         <p class="card-text">{{$book -> author}}<br>IDR. {{$book -> price}}</p>
                                         @auth
@@ -59,6 +62,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="paginator">
+            {{ $books->links('pagination::bootstrap-4') }}
         </div>
     </div>
 </div>

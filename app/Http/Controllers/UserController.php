@@ -28,7 +28,8 @@ class UserController extends Controller
         return view('User.userDetailsView', compact('user'));
     }
 
-    public function viewUpdateUser($id){
+    public function viewUpdateUser($id)
+    {
         $user = DB::table('users')
             ->join('roles', 'users.roleId', '=', 'roles.id')
             ->select('users.id', 'users.name as name', 'users.email', 'roles.name as roleName', 'roles.id as roleId')
@@ -37,14 +38,15 @@ class UserController extends Controller
         $roles = DB::table('roles')
             ->select('id', 'name')
             ->get();
-        foreach($roles as $role){
-            if($role->id == $user[0]->roleId) $role->check ='selected';
-            else $role->check ='';
+        foreach ($roles as $role) {
+            if ($role->id == $user[0]->roleId) $role->check = 'selected';
+            else $role->check = '';
         }
         return view('User.userUpdate', ['updateUser' => $user, 'updateRole' => $roles]);
     }
 
-    public function updateUser(UpdateUserRequest $request, $id){
+    public function updateUser(UpdateUserRequest $request, $id)
+    {
         $user = User::where('id', '=', $id)->first();
 
         $user->update([
@@ -56,7 +58,8 @@ class UserController extends Controller
         return redirect(route('getUsers'));
     }
 
-    public function deleteUser($id){
+    public function deleteUser($id)
+    {
         User::destroy($id);
         return redirect(route('getUsers'));
     }

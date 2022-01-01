@@ -29,6 +29,10 @@ p {
     align-items: center;
 }
 
+.genre {
+    margin: 10px 0 10px 0;
+}
+
 .upper-img{
     width: 200px;
     height: 300px;
@@ -46,4 +50,9 @@ p {
 .action {
     display: flex;
     justify-content: space-evenly;
+}
+
+.paginator {
+    display: flex;
+    justify-content: center;
 }
