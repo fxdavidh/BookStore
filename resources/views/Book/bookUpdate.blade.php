@@ -13,7 +13,11 @@
             </div>
         </div>
         <div class="row col-4">
-            <img src="{{asset('storage/'.$updateBook -> cover)}}" alt={{$updateBook -> cover}}>
+            @if ($updateBook->imageFrom == 'web')
+                <img src="{{$updateBook -> cover}}" alt={{$updateBook -> name}}> 
+            @else
+                <img src="{{asset('storage/'.$updateBook -> cover)}}" alt={{$updateBook -> name}}> 
+            @endif
         </div>
         <div class="row col-sm-1"></div>
         <div class="row col-7">
@@ -43,21 +47,21 @@
                     <div class="col-sm-10" style="padding-top: 10px;">
                         @foreach ($updateGenre as $key => $genre)
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="genre[]" value="{{$genre->id}}" {{ ($genre->check == 'checked' ? 'checked': '') }}>
-                              <label class="form-check-label" for="inlineCheckbox1">{{$genre->name}}</label>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="genre[]" value="{{$genre->id}}" {{ ($genre->check == 'checked' ? 'checked': '') }}>
+                                <label class="form-check-label" for="inlineCheckbox1">{{$genre->name}}</label>
                             </div>
                         @endforeach 
                     </div>
                     @error('genre')
-                      <div class="alert alert-danger">{{ $message }}</div>
+                        <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3 row">
                     <label for="synopsis" class="col-sm-2 col-form-label">Synopsis</label>
                     <div class="col-sm-10">
-                          <textarea name="synopsis" cols="30" rows="3" type="text" class="form-control">
-                            {{$updateBook->synopsis}}
-                          </textarea>
+                        <textarea name="synopsis" cols="30" rows="7" type="text" class="form-control">
+                        {{$updateBook->synopsis}}
+                        </textarea>
                     </div>
                     @error('synopsis')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -67,10 +71,10 @@
                     <label for="cover" class="col-sm-2 col-form-label">Upload New Book's Cover</label>
                     <div class="col-sm-10">
                         <input
-                          type="file"
-                          name="cover" 
-                          value="{{$updateBook->cover}}"
-                          class="form-control-file"
+                            type="file"
+                            name="cover" 
+                            value="{{$updateBook->cover}}"
+                            class="form-control-file"
                         />
                     </div>
                     @error('cover')

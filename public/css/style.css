@@ -30,7 +30,11 @@ p {
 }
 
 .genre {
-    margin: 10px 0 10px 0;
+    margin: 5px 0 5px 0;
+}
+
+.card-title {
+    margin-top: 15px;
 }
 
 .upper-img{
