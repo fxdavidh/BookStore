@@ -1,4 +1,4 @@
-Instructions for installation 
+Instructions for installation <br>
 This website use laravel framework Version 8.x<br>
 <li>Run 'git clone' on your terminal</li>
 <li>Make new file named '.env' using '.env.example'</li>
