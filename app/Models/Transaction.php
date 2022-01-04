@@ -10,8 +10,13 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'userId',
         'date',
+    ];
+
+    protected $casts = [
+        'id' => 'string',
     ];
 
     public function details()

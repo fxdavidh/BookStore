@@ -4,7 +4,7 @@
 <div class="container ">
     <div class="row justify-content-md-center">
         <div class="col-12">
-            
+
             <div class="navbar navbar-light ">
                 <div class="container-fluid">
                     @auth
@@ -39,9 +39,9 @@
                                 <div class="card">
                                     <div class="card-upper">
                                         @if ($book->imageFrom == 'web')
-                                            <img src="{{$book -> cover}}" class="upper-img" alt={{$book -> name}}> 
+                                            <img src="{{$book -> cover}}" class="upper-img" alt={{$book -> name}}>
                                         @else
-                                            <img src="{{asset('storage/'.$book -> cover)}}" class="upper-img" alt={{$book -> name}}> 
+                                            <img src="{{asset('storage/'.$book -> cover)}}" class="upper-img" alt={{$book -> name}}>
                                         @endif
                                     </div>
                                     <div class="card-body card-lower">

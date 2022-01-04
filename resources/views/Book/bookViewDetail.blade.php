@@ -34,14 +34,6 @@
                     @foreach ($genres as $key => $genre)
                         <button type="button" class="btn btn-light btn-sm genre">{{ $genre -> name}}</button>
                     @endforeach
-                <div class="col-sm-10" style="padding-top: 10px;">
-                    @foreach ($updateGenre as $key => $genre)
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" onclick="return false;" id="inlineCheckbox1" name="genre[]" value="{{$genre->id}}" {{ ($genre->check == 'checked' ? 'checked': '') }}>
-                            <label class="form-check-label" for="inlineCheckbox1">{{$genre->name}}</label>
-                        </div>
-                    @endforeach
-                </div>
             </div>
             <div class="mb-3 row">
                 <label for="synopsis" class="col-sm-2 col-form-label">Synopsis</label>
@@ -66,7 +58,7 @@
                     </div>
                         <button type="submit" style="float: right">Add to cart</button>
                     </div>
-                    <input type="hidden" name="bookId" value="{{$updateBook->id}}">
+                    <input type="hidden" name="bookId" value="{{$book->id}}">
                     <input type="hidden" name="userId" value="{{Auth::user()->id}}">
                 </div>
             </form>

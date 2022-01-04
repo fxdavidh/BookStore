@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function viewCart(Request $request){
-        $items = Cart::where('userId',$request->post()['userid'])->simplePaginate(10);
+    public function viewCart(){
+        $items = Cart::where('userId',Auth::user()->id)->simplePaginate(10);
         foreach($items as $item => $value){
             $bookId = $items[$item]->bookId;
             $book = Book::where('id',$bookId)->get();
@@ -26,7 +27,7 @@ class CartController extends Controller
 
     public function addToCart(AddToCartRequest $request){
 
-        $isExist = Cart::where('userId',$request->userId)->where('bookId',$request->bookId)->get();
+        $isExist = Cart::where('userId',Auth::user()->id)->where('bookId',$request->bookId)->get();
 
         if(count($isExist) == 0){
             Cart::create([
@@ -35,11 +36,15 @@ class CartController extends Controller
                 'quantity' => $request->quantity
             ]);
         }else{
-            Cart::where('userId',$request->userId)->where('bookId',$request->bookId)->update(['quantity' => $isExist[0]->quantity + $request->quantity]);
+            Cart::where('userId',Auth::user()->id)->where('bookId',$request->bookId)->update(['quantity' => $isExist[0]->quantity + $request->quantity]);
         }
 
 
 
         return redirect(route('getBooks'));
+    }
+
+    function clearCart(){
+        return Cart::where('userId',Auth::user()->id)->delete();
     }
 }

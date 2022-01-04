@@ -7,23 +7,38 @@ use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TransactionDetailController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class TransactionController extends Controller
 {
     public function checkout(Request $request){
 
-        $transaction = Transaction::create([
-            'userId' => $request->post()['userid'],
-            'date' => Carbon::now(),
+        $uuid = Str::uuid()->toString();
+
+        Transaction::create([
+            'id' => $uuid,
+            'userId' => Auth::user()->id,
+            'date' => Carbon::now()->toDayDateTimeString(),
         ]);
 
-        $lastId = $transaction->id;
-
-        $items = Cart::where('userId',$request->post()['userid'])->get();
+        $items = Cart::where('userId',Auth::user()->id)->get();
         foreach($items as $item){
-            (new TransactionDetailController)->insertDetail($item->quantity,$lastId,$item->bookId);
+            (new TransactionDetailController)->insertDetail($item->quantity,$uuid,$item->bookId);
         }
+
+        (new CartController)->clearCart();
 
         return redirect(route('getBooks'));
     }
+
+    public function getAllTransaction(){
+        $transactions = Transaction::where('userId',Auth::user()->id)->simplePaginate(10);
+
+        return view('transaction.viewTransactionHistory',[
+            'transactions' => $transactions
+        ]);
+    }
+
 }

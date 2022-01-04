@@ -22,6 +22,7 @@ const bookController = 'App\Http\Controllers\BookController';
 const userController = 'App\Http\Controllers\UserController';
 const cartController = 'App\Http\Controllers\CartController';
 const transactionController = 'App\Http\Controllers\TransactionController';
+const transactionDetailController = 'App\Http\Controllers\TransactionDetailController';
 
 Route::get('/', function () {
     // return view('layouts.app');
@@ -56,7 +57,9 @@ Route::group(['middleware' => IsAdminMiddleware::class, 'prefix' => 'admin'], fu
 });
 
 Route::group(['middleware' => IsMemberMiddleware::class, 'prefix' => 'member'], function () {
-    Route::post('/view-cart', cartController . '@viewCart')->name('viewCart');
+    Route::get('/view-cart', cartController . '@viewCart')->name('viewCart');
     Route::post('/add-to-cart', cartController . '@addToCart')->name('addToCart');
     Route::post('/checkout' , transactionController . '@checkout')->name('checkout');
+    Route::get('/view-transaction-history' , transactionController . '@getAllTransaction')->name('viewTransactionHistory');
+    Route::post('/view-transaction/detail' , transactionDetailController . '@getDetail')->name('viewTransactionDetail');
 });
