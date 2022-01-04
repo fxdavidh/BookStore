@@ -18,7 +18,7 @@ class IsAdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if($user -> roleId != '1'){
+        if($user -> roleId != 1){
             return redirect(route('login'));
         }
         return $next($request);

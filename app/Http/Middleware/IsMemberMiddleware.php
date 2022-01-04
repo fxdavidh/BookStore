@@ -18,7 +18,7 @@ class IsMemberMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if($user -> roleId != '2'){
+        if($user -> roleId != 2){
             return redirect(route('login'));
         }
         return $next($request);

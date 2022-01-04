@@ -10,11 +10,17 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date', 
+        'userId',
+        'date',
     ];
-    
+
     public function details()
     {
         return $this->hasMany(Transaction_Detail::class, 'transactionId', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'id');
     }
 }

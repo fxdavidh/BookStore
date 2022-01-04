@@ -2,6 +2,8 @@
 
 use App\Http\Middleware\IsAdminMiddleware;
 use App\Http\Middleware\IsMemberMiddleware;
+use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 const genreController = 'App\Http\Controllers\GenreController';
 const bookController = 'App\Http\Controllers\BookController';
 const userController = 'App\Http\Controllers\UserController';
+const cartController = 'App\Http\Controllers\CartController';
+const transactionController = 'App\Http\Controllers\TransactionController';
 
 Route::get('/', function () {
     // return view('layouts.app');
@@ -52,4 +56,7 @@ Route::group(['middleware' => IsAdminMiddleware::class, 'prefix' => 'admin'], fu
 });
 
 Route::group(['middleware' => IsMemberMiddleware::class, 'prefix' => 'member'], function () {
+    Route::post('/view-cart', cartController . '@viewCart')->name('viewCart');
+    Route::post('/add-to-cart', cartController . '@addToCart')->name('addToCart');
+    Route::post('/checkout' , transactionController . '@checkout')->name('checkout');
 });
