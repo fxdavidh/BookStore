@@ -18,8 +18,8 @@ class IsMemberMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if($user -> type != 'Member'){
-            return redirect(route('viewHome'));
+        if($user -> roleId != '2'){
+            return redirect(route('login'));
         }
         return $next($request);
     }

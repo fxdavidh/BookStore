@@ -18,8 +18,8 @@ class IsAdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if($user -> type != 'Admin'){
-            return redirect(route('viewHome'));
+        if($user -> roleId != '1'){
+            return redirect(route('login'));
         }
         return $next($request);
     }

@@ -38,9 +38,16 @@
                             <div class="col">
                                 <div class="card">
                                     <div class="card-upper">
-                                        <img src="{{asset('storage/'.$book -> cover)}}" class="upper-img" alt={{$book -> cover}}>
+                                        @if ($book->imageFrom == 'web')
+                                            <img src="{{$book -> cover}}" class="upper-img" alt={{$book -> name}}> 
+                                        @else
+                                            <img src="{{asset('storage/'.$book -> cover)}}" class="upper-img" alt={{$book -> name}}> 
+                                        @endif
                                     </div>
                                     <div class="card-body card-lower">
+                                        @foreach ($book->genre as $bookGenre)
+                                            <button type="button" class="btn btn-outline-dark btn-sm genre">{{ $bookGenre -> name}}</button>
+                                        @endforeach
                                         <h5 class="card-title">{{$book -> name}}</h5>
                                         <p class="card-text">{{$book -> author}}<br>IDR. {{$book -> price}}</p>
                                         @auth
@@ -59,6 +66,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="paginator">
+            {{ $books->links('pagination::bootstrap-4') }}
         </div>
     </div>
 </div>

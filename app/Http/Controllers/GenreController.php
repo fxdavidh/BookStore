@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class GenreController extends Controller
 {
     //
-    public function viewGenreCreate(){
+    public function viewGenreCreate()
+    {
         return view('Genre.genreCreate');
     }
 
@@ -27,7 +28,7 @@ class GenreController extends Controller
         $genres = Genre::all();
         return view('Genre.genreView', compact('genres'));
     }
-    
+
     public function getGenreOnBookCreate()
     {
         $genres = Genre::all();

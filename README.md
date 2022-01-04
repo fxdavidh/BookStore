@@ -1,3 +1,11 @@
+Instructions for installation <br>
+This website use laravel framework Version 8.x<br>
+<li>Run 'git clone' on your terminal</li>
+<li>Make new file named '.env' using '.env.example'</li>
+<li>Then run 'composer install' in your terminal</li>
+<li>Run 'php artisan key:generate'</li>
+<li>Run 'php artisan storage:link' for storing files/images</li>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">

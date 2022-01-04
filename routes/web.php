@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\IsAdminMiddleware;
+use App\Http\Middleware\IsMemberMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +30,7 @@ Route::get('/get-books', bookController . '@getBooks')->name('getBooks');
 Route::get('/get-books-by-filter', bookController . '@getBooksByFilter')->name('getBooksByFilter');
 Route::get('/view-book/{id}', bookController . '@viewBook')->name('viewBook');
 
-Route::group(['middleware' => 'App\Http\Middleware\IsAdmin', 'prefix' => 'admin'], function () {
+Route::group(['middleware' => IsAdminMiddleware::class, 'prefix' => 'admin'], function () {
     Route::get('/update-users/{id}', userController . '@viewUpdateUser')->name('viewUpdateUser');
     Route::get('/get-users', userController . '@getUsers')->name('getUsers');
     Route::get('/get-user/{id}', userController . '@getUserByUserId')->name('getUserByUserId');
@@ -49,5 +51,5 @@ Route::group(['middleware' => 'App\Http\Middleware\IsAdmin', 'prefix' => 'admin'
     Route::delete('/delete-book/{id}', bookController . '@deleteBook')->name('deleteBook');
 });
 
-Route::group(['middleware' => 'App\Http\Middleware\IsMember', 'prefix' => 'member'], function () {
+Route::group(['middleware' => IsMemberMiddleware::class, 'prefix' => 'member'], function () {
 });

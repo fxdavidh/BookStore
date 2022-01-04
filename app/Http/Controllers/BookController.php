@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
-    //
     public function viewBookCreate()
     {
         return view('Book.bookCreate');
@@ -42,33 +41,42 @@ class BookController extends Controller
 
     public function getBooks()
     {
+        // get all data from every books, and set pagination to 5 books/page
         $books = DB::table('books')
             ->select('*')
-            ->get();
+            ->paginate(5);
 
-        foreach ($books as $key => $value) 
-        {
+        foreach ($books as $key => $value) {
             $bookId = $books[$key]->id;
 
+            //  get every genres of the related book
             $genre = DB::table('book__genres')
                 ->join('genres', 'book__genres.genreId', '=', 'genres.id')
                 ->select('book__genres.bookId as bookId', 'genres.*')
                 ->where('book__genres.bookId', '=', $bookId)
                 ->get();
             $books[$key]->genre = $genre;
+
+            //  check if image being taken from internet (from seeding) or from local query
+            $image = mb_substr($books[$key]->cover, 0, 5);
+            if ($image == 'https') {
+                $books[$key]->imageFrom = 'web';
+            } else {
+                $books[$key]->imageFrom = 'local';
+            }
         }
         return view('Book.bookView', compact('books'));
     }
 
     public function getBooksByFilter(Request $request)
     {
+        // get all data from filtered title's books, and set pagination to 5 books/page
         $books = DB::table('books')
             ->select('*')
-            ->where('books.name', 'like', '%'.$request->filter.'%')
-            ->get();
+            ->where('books.name', 'like', '%' . $request->filter . '%')
+            ->paginate(5);
 
-        foreach ($books as $key => $value) 
-        {
+        foreach ($books as $key => $value) {
             $bookId = $books[$key]->id;
 
             $genre = DB::table('book__genres')
@@ -77,80 +85,81 @@ class BookController extends Controller
                 ->where('book__genres.bookId', '=', $bookId)
                 ->get();
             $books[$key]->genre = $genre;
+            
+            $image = mb_substr($books[$key]->cover, 0, 5);
+            if ($image == 'https') {
+                $books[$key]->imageFrom = 'web';
+            } else {
+                $books[$key]->imageFrom = 'local';
+            }
         }
         return view('Book.bookView', compact('books'));
     }
 
     public function viewUpdateBook($id)
     {
-        $books = Book::find($id);
-        $genres = DB::table('genres')
-        ->select('genres.*')
-        ->get();
-        $oldGenre = DB::table('book__genres')
-                ->join('genres', 'book__genres.genreId', '=', 'genres.id')
-                ->select('book__genres.bookId as bookId', 'genres.*')
-                ->where('book__genres.bookId', '=', $id)
-                ->get();
-        
-        $key = 0;
-        $arraySize = count($oldGenre);
-        foreach($genres as $i => $genre) {
-            if($key < $arraySize) {
-                if($oldGenre[$key]->id == $genre->id ) {
-                    $genres[$i]->check = 'checked';
-                    $key++;
-                }
-                else $genres[$i]->check = '';
-            }
-            else $genres[$i]->check = '';
+        $book = Book::find($id);
+
+        $image = mb_substr($book->cover, 0, 5);
+        if ($image == 'https') {
+            $book->imageFrom = 'web';
+        } else {
+            $book->imageFrom = 'local';
         }
 
-        // return dd($genres);
+        $genres = DB::table('genres')
+            ->select('genres.*')
+            ->get();
+        $oldGenre = DB::table('book__genres')
+            ->join('genres', 'book__genres.genreId', '=', 'genres.id')
+            ->select('book__genres.bookId as bookId', 'genres.*')
+            ->where('book__genres.bookId', '=', $id)
+            ->get();
 
-        return view('Book.bookUpdate', ['updateBook' => $books, 'updateGenre' => $genres]);
+        $key = 0;
+        $arraySize = count($oldGenre);
+        foreach ($genres as $i => $genre) {
+            if ($key < $arraySize) {
+                if ($oldGenre[$key]->id == $genre->id) {
+                    $genres[$i]->check = 'checked';
+                    $key++;
+                } else $genres[$i]->check = '';
+            } else $genres[$i]->check = '';
+        }
+
+        return view('Book.bookUpdate', ['updateBook' => $book, 'updateGenre' => $genres]);
     }
 
     public function viewBook($id)
     {
-        $books = Book::find($id);
-        $genres = DB::table('genres')
-        ->select('genres.*')
-        ->get();
-        $oldGenre = DB::table('book__genres')
-                ->join('genres', 'book__genres.genreId', '=', 'genres.id')
-                ->select('book__genres.bookId as bookId', 'genres.*')
-                ->where('book__genres.bookId', '=', $id)
-                ->get();
-        
-        $key = 0;
-        $arraySize = count($oldGenre);
-        foreach($genres as $i => $genre) {
-            if($key < $arraySize) {
-                if($oldGenre[$key]->id == $genre->id ) {
-                    $genres[$i]->check = 'checked';
-                    $key++;
-                }
-                else $genres[$i]->check = '';
-            }
-            else $genres[$i]->check = '';
+        $book = Book::find($id);
+
+        $image = mb_substr($book->cover, 0, 5);
+        if ($image == 'https') {
+            $book->imageFrom = 'web';
+        } else {
+            $book->imageFrom = 'local';
         }
 
-        // return dd($genres);
+        $genres = DB::table('book__genres')
+            ->join('genres', 'book__genres.genreId', '=', 'genres.id')
+            ->select('book__genres.bookId as bookId', 'genres.*')
+            ->where('book__genres.bookId', '=', $id)
+            ->get();
 
-        return view('Book.bookViewDetail', ['updateBook' => $books, 'updateGenre' => $genres]);
+        return view('Book.bookViewDetail', ['book' => $book, 'genres' => $genres]);
     }
 
     public function updateBook(BookCreateUpdateRequest $request, $id)
     {
         $book = Book::where('id', '=', $id)->first();
-        
+
         DB::table('book__genres')->where('bookId', '=', $id)->delete();
         Storage::delete($book->cover);
 
         $cover = $request->file('cover')->store('covers');
 
-        $book -> update([
+        $book->update([
             'name' => $request->name,
             'author' => $request->author,
             'synopsis' => $request->synopsis,

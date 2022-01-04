@@ -29,6 +29,14 @@ p {
     align-items: center;
 }
 
+.genre {
+    margin: 5px 0 5px 0;
+}
+
+.card-title {
+    margin-top: 15px;
+}
+
 .upper-img{
     width: 200px;
     height: 300px;
@@ -46,4 +54,9 @@ p {
 .action {
     display: flex;
     justify-content: space-evenly;
+}
+
+.paginator {
+    display: flex;
+    justify-content: center;
 }
