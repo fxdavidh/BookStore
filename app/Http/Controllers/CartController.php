@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -44,7 +45,41 @@ class CartController extends Controller
         return redirect(route('getBooks'));
     }
 
+    public function updateCart($id, Request $request){
+        Cart::where('userId',Auth::user()->id)->where('bookId',$id)->update(['quantity' => $request->quantity]);
+
+        return redirect(route('viewCart'));
+    }
+
+    public function deleteCart($id){
+        Cart::where('userId',Auth::user()->id)->where('bookId',$id)->delete();
+
+        return redirect(route('viewCart'));
+    }
+
+
     function clearCart(){
         return Cart::where('userId',Auth::user()->id)->delete();
+    }
+
+    function editCart($id){
+        $book = Book::find($id);
+
+        $image = mb_substr($book->cover, 0, 5);
+        if ($image == 'https') {
+            $book->imageFrom = 'web';
+        } else {
+            $book->imageFrom = 'local';
+        }
+
+        $genres = DB::table('book__genres')
+            ->join('genres', 'book__genres.genreId', '=', 'genres.id')
+            ->select('book__genres.bookId as bookId', 'genres.*')
+            ->where('book__genres.bookId', '=', $id)
+            ->get();
+
+        $quantity = Cart::select('quantity')->where('bookId',$id)->where('userId',Auth::user()->id)->get();
+
+        return view('Cart.editCart', ['book' => $book, 'genres' => $genres, 'quantity' => $quantity]);
     }
 }

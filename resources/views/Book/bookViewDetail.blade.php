@@ -56,7 +56,7 @@
                         <label for="">Quantity</label>
                         <input min="1" required name="quantity" type="number">
                     </div>
-                        <button type="submit" style="float: right">Add to cart</button>
+                        <button class="btn btn-primary" type="submit" style="float: right">Add to cart</button>
                     </div>
                     <input type="hidden" name="bookId" value="{{$book->id}}">
                     <input type="hidden" name="userId" value="{{Auth::user()->id}}">
