@@ -58,6 +58,16 @@ class UserController extends Controller
         return redirect(route('getUsers'));
     }
 
+    public function updateName($id, Request $request){
+        $user = User::where('id', '=', $id);
+
+        $user->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect(route('profile'));
+    }
+
     public function deleteUser($id)
     {
         User::destroy($id);

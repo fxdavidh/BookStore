@@ -2,7 +2,7 @@
 
 use App\Http\Middleware\IsAdminMiddleware;
 use App\Http\Middleware\IsMemberMiddleware;
-use App\Http\Controllers\CartController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,12 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+const homeController = 'App\Http\Controllers\HomeController';
 const genreController = 'App\Http\Controllers\GenreController';
 const bookController = 'App\Http\Controllers\BookController';
 const userController = 'App\Http\Controllers\UserController';
 const cartController = 'App\Http\Controllers\CartController';
 const transactionController = 'App\Http\Controllers\TransactionController';
 const transactionDetailController = 'App\Http\Controllers\TransactionDetailController';
+const changePasswordController = 'App\Http\Controllers\ChangePasswordController';
 
 Route::get('/', function () {
     // return view('layouts.app');
@@ -58,8 +60,18 @@ Route::group(['middleware' => IsAdminMiddleware::class, 'prefix' => 'admin'], fu
 
 Route::group(['middleware' => IsMemberMiddleware::class, 'prefix' => 'member'], function () {
     Route::get('/view-cart', cartController . '@viewCart')->name('viewCart');
+    Route::get('/edit-cart/{id}', cartController . '@editCart')->name('editCart');
+    Route::patch('/update-cart/{id}', cartController . '@updateCart')->name('updateCart');
+    Route::delete('/delete-cart/{id}', cartController . '@deleteCart')->name('deleteCart');
     Route::post('/add-to-cart', cartController . '@addToCart')->name('addToCart');
     Route::post('/checkout' , transactionController . '@checkout')->name('checkout');
     Route::get('/view-transaction-history' , transactionController . '@getAllTransaction')->name('viewTransactionHistory');
     Route::post('/view-transaction/detail' , transactionDetailController . '@getDetail')->name('viewTransactionDetail');
+});
+
+Route::group(['middleware' => Authenticate::class], function(){
+    Route::get('/profile', homeController . '@profile')->name('profile');
+    Route::patch('/update-name/{id}', userController . '@updateName')->name('updateName');
+    Route::get('/change-password', homeController . '@changePassword')->name('changePassword');
+    Route::patch('/update-password', changePasswordController . '@changePassword')->name('updatePassword');
 });
