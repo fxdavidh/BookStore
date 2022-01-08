@@ -57,7 +57,7 @@
                                                 <a href="{{route('viewBook', ['id' => $book->id])}}" class="btn btn-info">View Details</a>
                                             @endif
                                         @else
-                                            <a href="{{route('viewBook', ['id' => $book->id])}}" class="btn btn-info">View Details</a>
+                                            <a href="{{route('login')}}" class="btn btn-info">View Details</a>
                                         @endauth
                                     </div>
                                 </div>

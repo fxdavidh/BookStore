@@ -36,7 +36,7 @@
                         </form>
                         <form action="{{ route('deleteCart',['id' => $item['book'][0]->id]) }}" method="POST">
                             @csrf
-                            @method('DELEtE');
+                            @method('DELEtE')
                             <button class="btn btn-danger">Remove</button>
                         </form>
                     </div>

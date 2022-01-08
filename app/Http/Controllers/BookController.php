@@ -85,7 +85,7 @@ class BookController extends Controller
                 ->where('book__genres.bookId', '=', $bookId)
                 ->get();
             $books[$key]->genre = $genre;
-            
+
             $image = mb_substr($books[$key]->cover, 0, 5);
             if ($image == 'https') {
                 $books[$key]->imageFrom = 'web';

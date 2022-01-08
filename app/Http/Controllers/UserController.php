@@ -58,7 +58,8 @@ class UserController extends Controller
         return redirect(route('getUsers'));
     }
 
-    public function updateName($id, Request $request){
+    public function updateName($id, Request $request)
+    {
         $user = User::where('id', '=', $id);
 
         $user->update([
@@ -70,7 +71,8 @@ class UserController extends Controller
 
     public function deleteUser($id)
     {
-        User::destroy($id);
+        $user = User::find($id);
+        if ($user->roleId == 2) User::destroy($id);
         return redirect(route('getUsers'));
     }
 }

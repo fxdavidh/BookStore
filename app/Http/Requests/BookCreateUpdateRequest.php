@@ -24,9 +24,9 @@ class BookCreateUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'author' => 'required',
-            'synopsis' => 'required',
+            'name' => 'required|string',
+            'author' => 'required|string',
+            'synopsis' => 'required|string',
             'genre' => 'required',
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'price' => 'required|numeric',
