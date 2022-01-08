@@ -20,7 +20,7 @@ class TransactionController extends Controller
         Transaction::create([
             'id' => $uuid,
             'userId' => Auth::user()->id,
-            'date' => Carbon::now()->toDayDateTimeString(),
+            'dueDate' => Carbon::now()->addWeeks(4)->toDayDateTimeString(),
         ]);
 
         $items = Cart::where('userId',Auth::user()->id)->get();

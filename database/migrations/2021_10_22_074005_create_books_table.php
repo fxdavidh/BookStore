@@ -19,7 +19,12 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->longText('synopsis');
             $table->string('cover');
+            $table->string('file')->nullable();
             $table->integer('price');
+            $table->unsignedBigInteger('storeId');
+            $table->unsignedBigInteger('typeId');
+            $table->foreign('storeId')->references('id')->on('stores')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('typeId')->references('id')->on('types')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

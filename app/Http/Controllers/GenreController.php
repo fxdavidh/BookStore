@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GenreCreateRequest;
 use App\Models\Genre;
+use App\Models\Store;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class GenreController extends Controller
@@ -32,7 +34,9 @@ class GenreController extends Controller
     public function getGenreOnBookCreate()
     {
         $genres = Genre::all();
-        return view('Book.bookCreate', compact('genres'));
+        $stores = Store::all();
+        $types = Type::all();
+        return view('Book.bookCreate', ['genres' => $genres, 'stores' => $stores, 'types' => $types,]);
     }
 
     public function viewUpdateGenre($id)

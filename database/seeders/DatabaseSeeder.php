@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             GenreSeeder::class,
             UserSeeder::class,
+            StoreSeeder::class,
+            TypeSeeder::class,
             BookSeeder::class,
             BookGenreSeeder::class,
             CartSeeder::class

@@ -20,13 +20,17 @@ class BookController extends Controller
     public function createBook(BookCreateUpdateRequest $request)
     {
         $cover = $request->file('cover')->store('covers');
+        $file = $request->file('file')->store('files');
 
         $book = Book::create([
             'name' => $request->name,
             'author' => $request->author,
             'synopsis' => $request->synopsis,
             'cover' => $cover,
+            'file' => $file,
             'price' => $request->price,
+            'storeId' => $request->storeId,
+            'typeId' => $request->typeId,
         ]);
 
         foreach ($request->genre as $key) {
@@ -155,16 +159,21 @@ class BookController extends Controller
         $book = Book::where('id', '=', $id)->first();
 
         DB::table('book__genres')->where('bookId', '=', $id)->delete();
-        Storage::delete($book->cover);
+        if (file_exists($book->cover)) Storage::delete($book->cover);
+        if (file_exists($book->file)) Storage::delete($book->file);
 
         $cover = $request->file('cover')->store('covers');
+        $file = $request->file('file')->store('files');
 
         $book->update([
             'name' => $request->name,
             'author' => $request->author,
             'synopsis' => $request->synopsis,
             'cover' => $cover,
+            'file' => $file,
             'price' => $request->price,
+            'storeId' => $request->storeId,
+            'typeId' => $request->typeId,
         ]);
 
         foreach ($request->genre as $key) {
@@ -177,10 +186,17 @@ class BookController extends Controller
         return redirect(route('getBooks'));
     }
 
+    public function viewFile($id){
+        $file = Book::find($id)->file;
+        return redirect(asset('storage/'.$file));
+        // return response()->file(asset('storage/'.$file));
+    }
+
     public function deleteBook($id)
     {
         $book = Book::where('id', '=', $id)->first();
-        Storage::delete($book->cover);
+        if (file_exists($book->cover)) Storage::delete($book->cover);
+        if (file_exists($book->file)) Storage::delete($book->file);
         Book::destroy($id);
         return redirect(route('getBooks'));
     }

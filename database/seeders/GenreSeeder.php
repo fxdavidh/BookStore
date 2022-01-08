@@ -21,7 +21,7 @@ class GenreSeeder extends Seeder
             'name' => 'Action',
         ]);
         DB::table('genres')->insert([
-            'name' => 'History',
+            'name' => 'Humor',
         ]);
         DB::table('genres')->insert([
             'name' => 'Fantasy',
@@ -30,7 +30,7 @@ class GenreSeeder extends Seeder
             'name' => 'Thriller',
         ]);
         DB::table('genres')->insert([
-            'name' => 'Mystery',
+            'name' => 'Science',
         ]);
     }
 }

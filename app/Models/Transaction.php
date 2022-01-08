@@ -12,7 +12,7 @@ class Transaction extends Model
     protected $fillable = [
         'id',
         'userId',
-        'date',
+        'dueDate',
     ];
 
     protected $casts = [

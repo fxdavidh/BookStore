@@ -15,7 +15,7 @@ class CreateTransactionDetailsTable extends Migration
     {
         Schema::create('transaction__details', function (Blueprint $table) {
             $table->id();
-            $table->integer('quantity');
+            $table->integer('quantity')->default(1);
             $table->uuid('transactionId');
             $table->unsignedBigInteger('bookId');
             $table->foreign('transactionId')->references('id')->on('transactions')->onDelete('cascade')->onUpdate('cascade');

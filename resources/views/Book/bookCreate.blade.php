@@ -27,7 +27,7 @@
                         @enderror
                     </div>
                     <div class="mb-3 row">
-                        <label for="author" class="col-sm-2 col-form-label">Genre</label>
+                        <label for="genre" class="col-sm-2 col-form-label">Genre</label>
                         <div class="col-sm-10" style="padding-top: 10px;">
                             @foreach ($genres as $key => $genre)
                                 <div class="form-check form-check-inline">
@@ -37,6 +37,38 @@
                             @endforeach 
                         </div>
                         @error('genre')
+                          <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="storeId" class="col-sm-2 col-form-label">Store</label>
+                        <div class="col-sm-10" style="padding-top: 10px;">
+                            <div class="input-group mb-3">
+                                <select class="form-select" id="storeId" name="storeId">
+                                    <option selected></option>
+                                    @foreach ($stores as $key => $store)
+                                        <option value="{{$store->id}}">{{$store->name}}</option>
+                                    @endforeach 
+                                </select>
+                            </div>
+                        </div>
+                        @error('storeId')
+                          <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="typeId" class="col-sm-2 col-form-label">Type</label>
+                        <div class="col-sm-10" style="padding-top: 10px;">
+                            <div class="input-group mb-3">
+                                <select class="form-select" id="typeId" name="typeId">
+                                    <option selected></option>
+                                    @foreach ($types as $key => $type)
+                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                    @endforeach 
+                                </select>
+                            </div>
+                        </div>
+                        @error('typeId')
                           <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -60,6 +92,19 @@
                             />
                         </div>
                         @error('cover')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="file" class="col-sm-2 col-form-label">Upload Book's File</label>
+                        <div class="col-sm-10">
+                            <input
+                              type="file"
+                              name="file"
+                              class="form-control-file"
+                            />
+                        </div>
+                        @error('file')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>

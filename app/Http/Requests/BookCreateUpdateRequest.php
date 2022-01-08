@@ -29,6 +29,7 @@ class BookCreateUpdateRequest extends FormRequest
             'synopsis' => 'required',
             'genre' => 'required',
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'file' => 'required|mimes:pdf',
             'price' => 'required|numeric',
         ];
     }

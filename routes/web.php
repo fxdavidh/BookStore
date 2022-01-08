@@ -54,6 +54,7 @@ Route::group(['middleware' => IsAdminMiddleware::class, 'prefix' => 'admin'], fu
     Route::get('/update-book/{id}', bookController . '@viewUpdateBook')->name('viewUpdateBook');
     Route::patch('/update-book/{id}', bookController . '@updateBook')->name('updateBook');
     Route::delete('/delete-book/{id}', bookController . '@deleteBook')->name('deleteBook');
+    Route::get('/get-book/file/{id}', bookController . '@viewFile')->name('viewFile');
 });
 
 Route::group(['middleware' => IsMemberMiddleware::class, 'prefix' => 'member'], function () {

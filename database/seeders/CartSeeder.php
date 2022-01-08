@@ -17,7 +17,7 @@ class CartSeeder extends Seeder
         Cart::create([
             'userId' => '2',
             'bookId' => '1',
-            'quantity' => '5'
+            'quantity' => '1'
         ]);
     }
 }
