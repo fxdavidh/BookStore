@@ -136,7 +136,13 @@ class BookController extends Controller
 
     public function viewBook($id)
     {
-        $book = Book::find($id);
+
+        $book = DB::table('books')
+                ->join('stores', 'books.storeId', '=', 'stores.id')
+                ->join('types', 'books.typeId', '=', 'types.id')
+                ->select('books.*', 'stores.name as store', 'types.name as type')
+                ->where('books.id', '=', $id)
+                ->first();
 
         $image = mb_substr($book->cover, 0, 5);
         if ($image == 'https') {
@@ -189,7 +195,6 @@ class BookController extends Controller
     public function viewFile($id){
         $file = Book::find($id)->file;
         return redirect(asset('storage/'.$file));
-        // return response()->file(asset('storage/'.$file));
     }
 
     public function deleteBook($id)

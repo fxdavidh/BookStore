@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TransactionDetailController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
@@ -20,7 +21,7 @@ class TransactionController extends Controller
         Transaction::create([
             'id' => $uuid,
             'userId' => Auth::user()->id,
-            'dueDate' => Carbon::now()->addWeeks(4)->toDayDateTimeString(),
+            'dueDate' => Carbon::now()->addWeeks(4)->toDateTime(),
         ]);
 
         $items = Cart::where('userId',Auth::user()->id)->get();
@@ -40,5 +41,20 @@ class TransactionController extends Controller
             'transactions' => $transactions
         ]);
     }
+
+    public function getOwenedBooks(){
+        $transactions = DB::table('transactions')
+                ->join('transaction__details', 'transactions.id', '=', 'transaction__details.transactionId')
+                ->join('books', 'transaction__details.bookId', '=', 'books.id')
+                ->where('userId',Auth::user()->id)
+                ->whereDate('transactions.dueDate', '>', Carbon::now()->toDateTime())
+                ->simplePaginate(10);
+
+        return view('transaction.viewOwnedBooks',[
+            'items' => $transactions
+        ]);
+    }
+
+    
 
 }

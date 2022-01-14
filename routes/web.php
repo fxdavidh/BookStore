@@ -62,5 +62,7 @@ Route::group(['middleware' => IsMemberMiddleware::class, 'prefix' => 'member'], 
     Route::post('/add-to-cart', cartController . '@addToCart')->name('addToCart');
     Route::post('/checkout' , transactionController . '@checkout')->name('checkout');
     Route::get('/view-transaction-history' , transactionController . '@getAllTransaction')->name('viewTransactionHistory');
+    Route::get('/view-owened' , transactionController . '@getOwenedBooks')->name('getOwenedBooks');
     Route::post('/view-transaction/detail' , transactionDetailController . '@getDetail')->name('viewTransactionDetail');
+    Route::get('/get-book/file/{id}', bookController . '@viewFile')->name('viewFile');
 });

@@ -44,6 +44,18 @@
                 </div>
             </div>
             <div class="mb-3 row">
+                <label for="store" class="col-sm-2 col-form-label">Store</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly name="store" class="form-control-plaintext" value="{{$book->store}}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="type" class="col-sm-2 col-form-label">Type</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly name="type" class="form-control-plaintext" value="{{$book->type}}">
+                </div>
+            </div>
+            <div class="mb-3 row">
                 <label for="price" class="col-sm-2 col-form-label">Price</label>
                 <div class="col-sm-10">
                     <input type="text" readonly name="price" class="form-control-plaintext" value="{{$book->price}}">
@@ -54,7 +66,7 @@
                 <div class="" style="display: flex;justify-content: space-between">
                     <div style="display: inline-block">
                         <label for="">Quantity</label>
-                        <input min="1" required name="quantity" type="number">
+                        <input min="1" readonly required name="quantity" type="number" value="1">
                     </div>
                         <button type="submit" style="float: right">Add to cart</button>
                     </div>

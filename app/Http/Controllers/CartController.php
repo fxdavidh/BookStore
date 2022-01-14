@@ -33,7 +33,7 @@ class CartController extends Controller
             Cart::create([
                 'userId' => $request->userId,
                 'bookId' => $request->bookId,
-                'quantity' => $request->quantity
+                'quantity' => 1
             ]);
         }else{
             Cart::where('userId',Auth::user()->id)->where('bookId',$request->bookId)->update(['quantity' => $isExist[0]->quantity + $request->quantity]);
