@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Book Store</title>
+    <title>SeaBook</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Book Store
+                    SeaBook
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -105,7 +105,7 @@
 
 
         <div class="footer d-flex justify-content-center">
-            <h4>Copyright &copy; 2021 Book Store</h4>
+            <h4>Copyright &copy; 2021 SeaBook</h4>
         </div>
     </div>
 

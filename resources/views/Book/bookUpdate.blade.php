@@ -82,6 +82,20 @@
                     @enderror
                 </div>
                 <div class="mb-3 row">
+                    <label for="file" class="col-sm-2 col-form-label">Upload New Book's File</label>
+                    <div class="col-sm-10">
+                        <input
+                            type="file"
+                            name="file" 
+                            value="{{$updateBook->file}}"
+                            class="form-control-file"
+                        />
+                    </div>
+                    @error('file')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 row">
                     <label for="price" class="col-sm-2 col-form-label">Price</label>
                     <div class="col-sm-10">
                         <input type="text" name="price" class="form-control" value="{{$updateBook->price}}">

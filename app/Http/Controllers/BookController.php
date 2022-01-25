@@ -178,8 +178,6 @@ class BookController extends Controller
             'cover' => $cover,
             'file' => $file,
             'price' => $request->price,
-            'storeId' => $request->storeId,
-            'typeId' => $request->typeId,
         ]);
 
         foreach ($request->genre as $key) {

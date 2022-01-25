@@ -31,12 +31,11 @@
                         <form style="margin-right: 1%" action="{{route('viewBook', ['id' => $item['book'][0]->id])}}" method="GET">
                             <button class="btn btn-secondary">View book detail</button>
                         </form>
-                        <form style="margin-right: 1%" action="">
-                            <button class="btn btn-primary">Edit</button>
-                        </form>
-                        <form action="">
-                            <button class="btn btn-danger">Remove</button>
-                        </form>
+                      <form action="{{ route('deleteCart',['id' => $item['book'][0]->id]) }}" method="POST">
+                          @csrf
+                          @method('DELEtE')
+                          <button class="btn btn-danger">Remove</button>
+                      </form>
                     </div>
                 </td>
             </tr>

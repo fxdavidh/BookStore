@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -46,5 +47,17 @@ class CartController extends Controller
 
     function clearCart(){
         return Cart::where('userId',Auth::user()->id)->delete();
+    }
+    
+    public function updateCart($id, Request $request){
+        Cart::where('userId',Auth::user()->id)->where('bookId',$id)->update(['quantity' => $request->quantity]);
+
+        return redirect(route('viewCart'));
+    }
+
+    public function deleteCart($id){
+        Cart::where('userId',Auth::user()->id)->where('bookId',$id)->delete();
+
+        return redirect(route('viewCart'));
     }
 }

@@ -33,7 +33,11 @@ Auth::routes();
 
 Route::get('/get-books', bookController . '@getBooks')->name('getBooks');
 Route::get('/get-books-by-filter', bookController . '@getBooksByFilter')->name('getBooksByFilter');
-Route::get('/view-book/{id}', bookController . '@viewBook')->name('viewBook');
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/view-book/{id}', bookController . '@viewBook')->name('viewBook');
+
+});
 
 Route::group(['middleware' => IsAdminMiddleware::class, 'prefix' => 'admin'], function () {
     Route::get('/update-users/{id}', userController . '@viewUpdateUser')->name('viewUpdateUser');
@@ -59,6 +63,8 @@ Route::group(['middleware' => IsAdminMiddleware::class, 'prefix' => 'admin'], fu
 
 Route::group(['middleware' => IsMemberMiddleware::class, 'prefix' => 'member'], function () {
     Route::get('/view-cart', cartController . '@viewCart')->name('viewCart');
+    Route::patch('/update-cart/{id}', cartController . '@updateCart')->name('updateCart');
+    Route::delete('/delete-cart/{id}', cartController . '@deleteCart')->name('deleteCart');
     Route::post('/add-to-cart', cartController . '@addToCart')->name('addToCart');
     Route::post('/checkout' , transactionController . '@checkout')->name('checkout');
     Route::get('/view-transaction-history' , transactionController . '@getAllTransaction')->name('viewTransactionHistory');
