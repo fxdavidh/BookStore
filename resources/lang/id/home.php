@@ -9,7 +9,16 @@
         'Hello' => 'Halo',
         'Search' => 'Cari',
         'Clear' => 'Bersihkan Filter',
-        'Insert' => 'Masukkan Buku'
+        'Insert' => 'Masukkan Buku',
+        'Name' => 'Nama',
+        'Author' => 'Penulis',
+        'Genre' => 'Genre',
+        'Synopsis' => 'Sinopsis',
+        'Store' => 'Toko',
+        'Type' => 'Tipe',
+        'Price' => 'Harga',
+        'Addtocart' => 'Tambahkan ke keranjang',
+        'Quantity' => 'Jumlah'
     ];
 
 

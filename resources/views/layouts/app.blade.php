@@ -25,7 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('getBooks',['locale' => 'id']) }}">
                     SeaBook
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -70,7 +70,7 @@
                                     {{__('home.Manage')}}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{{ route('getBooks') }}">Book</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('getBooks', ['locale' => 'id']) }}">Book</a></li>
                                         <li><a class="dropdown-item" href="{{ route('getGenres') }}">Genre</a></li>
                                         <li><a class="dropdown-item" href="{{ route('getUsers') }}">User</a></li>
                                     </ul>
@@ -110,6 +110,5 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 </body>
 </html>

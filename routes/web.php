@@ -21,21 +21,22 @@ const genreController = 'App\Http\Controllers\GenreController';
 const bookController = 'App\Http\Controllers\BookController';
 const userController = 'App\Http\Controllers\UserController';
 const cartController = 'App\Http\Controllers\CartController';
+const homeController = 'App\Http\Controllers\HomeController';
 const transactionController = 'App\Http\Controllers\TransactionController';
 const transactionDetailController = 'App\Http\Controllers\TransactionDetailController';
 
 Route::get('/', function () {
     // return view('layouts.app');
-    return redirect(route('getBooks'));
+    return redirect(route('getBooks',['locale' => 'id']));
 });
 
 Auth::routes();
 
-Route::get('/get-books', bookController . '@getBooks')->name('getBooks');
+Route::get('/get-books/{locale}', bookController . '@getBooks')->name('getBooks');
 Route::get('/get-books-by-filter', bookController . '@getBooksByFilter')->name('getBooksByFilter');
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/view-book/{id}', bookController . '@viewBook')->name('viewBook');
+    Route::get('/view-book/{id}/{locale}', bookController . '@viewBook')->name('viewBook');
 
 });
 

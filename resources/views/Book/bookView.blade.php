@@ -4,7 +4,10 @@
 <div class="container ">
     <div class="row justify-content-md-center">
         <div class="col-12">
-
+            <div style="display: flex">
+                <a style="text-decoration: none" href="{{ route('getBooks',['locale' => 'en']) }}">EN |</a>
+                <a style="text-decoration: none" href="{{ route('getBooks',['locale' => 'id']) }}">| ID</a>
+            </div>
             <div class="navbar navbar-light ">
                 <div class="container-fluid">
                     @auth
@@ -21,7 +24,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end filter">
-                <form action="{{route('getBooks')}}" method="GET" enctype="multipart/form-data">
+                <form action="{{route('getBooks',['locale' => 'id'])}}" method="GET" enctype="multipart/form-data">
                     @csrf
                     <button class="btn btn-success">{{ __('home.Clear') }}</button>
                 </form>
@@ -54,7 +57,7 @@
                                             @if (Auth::user()->roleId == 1)
                                                 <a href="{{route('updateBook', ['id' => $book->id])}}" class="btn btn-info">{{ __('home.ViewDetails') }}</a>
                                             @else
-                                                <a href="{{route('viewBook', ['id' => $book->id])}}" class="btn btn-info">{{ __('home.ViewDetails') }}</a>
+                                                <a href="{{route('viewBook', ['id' => $book->id,'locale' => 'id'])}}" class="btn btn-info">{{ __('home.ViewDetails') }}</a>
                                             @endif
                                         @else
                                             <a href="{{route('login')}}" class="btn btn-info">{{ __('home.ViewDetails') }}</a>

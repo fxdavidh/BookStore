@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Book_Genre;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -43,7 +44,7 @@ class BookController extends Controller
         return redirect(route('getBooks'));
     }
 
-    public function getBooks()
+    public function getBooks($locale = 'id')
     {
         // get all data from every books, and set pagination to 5 books/page
         $books = DB::table('books')
@@ -69,6 +70,8 @@ class BookController extends Controller
                 $books[$key]->imageFrom = 'local';
             }
         }
+
+        App::setlocale($locale);
         return view('Book.bookView', compact('books'));
     }
 
@@ -89,7 +92,7 @@ class BookController extends Controller
                 ->where('book__genres.bookId', '=', $bookId)
                 ->get();
             $books[$key]->genre = $genre;
-            
+
             $image = mb_substr($books[$key]->cover, 0, 5);
             if ($image == 'https') {
                 $books[$key]->imageFrom = 'web';
@@ -134,7 +137,7 @@ class BookController extends Controller
         return view('Book.bookUpdate', ['updateBook' => $book, 'updateGenre' => $genres]);
     }
 
-    public function viewBook($id)
+    public function viewBook($id,$locale)
     {
 
         $book = DB::table('books')
@@ -157,6 +160,8 @@ class BookController extends Controller
             ->where('book__genres.bookId', '=', $id)
             ->get();
 
+
+        App::setLocale($locale);
         return view('Book.bookViewDetail', ['book' => $book, 'genres' => $genres]);
     }
 
